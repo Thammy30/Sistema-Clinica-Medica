@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Clínica Médica</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="page-center">
+
+<div class="card">
+
+    <h2>🏥 Sistema Clínica Médica</h2>
+ 
+    <form action="FrontController" method="post">
+        <input type="hidden" name="acao" value="login">
+
+        <label>E-mail</label>
+        <input type="text" name="email" required>
+
+        <label>Senha</label>
+        <input type="password" name="senha" required>
+
+        <button type="submit">Entrar</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
