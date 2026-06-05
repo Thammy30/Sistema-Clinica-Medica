@@ -1,0 +1,313 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E RESET
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   TELA CENTRALIZADA (LOGIN / CADASTROS)
+   ========================================================================== */
+.page-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px 20px;
+}
+
+/* Card base para formulários e listagens */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 420px; /* Mantém Login, Usuário, Médico e Consulta perfeitamente compactos */
+    transition: max-width 0.3s ease;
+}
+
+/* 🔥 ATUALIZADO: O card se expande se for a tela de Paciente, Prontuário OU a tabela de listagem */
+.page-center .card:has(input[name="cpf"]),
+.page-center .card:has(input[name="diagnostico"]),
+.page-center .card:has(table) {
+    max-width: 750px; 
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007BFF;
+}
+
+/* Estrutura do Formulário em Grid */
+.card form {
+    display: grid;
+    grid-template-columns: 1fr; /* Padrão compacto de 1 coluna vertical */
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* 🔥 ATUALIZADO: Ativa as duas colunas se for o formulário de paciente OU de prontuário */
+.card:has(input[name="cpf"]) form,
+.card:has(input[name="diagnostico"]) form {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Agrupamento de Label + Input */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #495057;
+}
+
+/* Customização de Todos os Campos de Entrada (Engloba Consultas e Prontuários) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select, 
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    transition: border-color 0.2s;
+    background-color: #fff;
+    height: 40px; /* Força altura padrão idêntica para todos os tipos */
+}
+
+/* Ajuste específico para área de texto longa */
+textarea {
+    resize: vertical;
+    height: 70px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Classes utilitárias para o Grid */
+.full-width {
+    grid-column: span 2;
+}
+
+/* 🔥 ATUALIZADO: Garante que o prontuário também vire 1 coluna no celular */
+@media (max-width: 600px) {
+    .card:has(input[name="cpf"]) form,
+    .card:has(input[name="diagnostico"]) form {
+        grid-template-columns: 1fr;
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+}
+
+/* ==========================================================================
+   BOTÕES (PADRÃO, SALVAR E VOLTAR)
+   ========================================================================== */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Estilo do botão de Voltar (Cinza) */
+a button[type="button"] {
+    background: #6c757d;
+    margin-top: 5px;
+}
+
+a button[type="button"]:hover {
+    background: #5a6268;
+}
+
+/* ==========================================================================
+   PAINEL PRINCIPAL (HOME / DASHBOARD)
+   ========================================================================== */
+body:has(.sidebar) {
+    display: flex;
+}
+
+/* Barra Lateral */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #007BFF;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 25px 20px;
+    color: white;
+    box-sizing: border-box;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 15px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 8px 0;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s, padding-left 0.2s;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    padding-left: 20px;
+}
+
+/* Área de Conteúdo da Home */
+.content {
+    margin-left: 240px;
+    padding: 40px;
+    width: calc(100% - 240px);
+    box-sizing: border-box;
+}
+
+.content h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #212529;
+}
+
+/* Card Informativo Superior */
+.card-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    margin-bottom: 35px;
+    border-left: 5px solid #28a745;
+}
+
+.card-info h3 {
+    color: #212529;
+    margin-bottom: 5px;
+}
+
+.card-info p {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Grid para colocar os Cards de Atalho Lado a Lado */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Estilização dos Cards da Home */
+.content .card {
+    max-width: none;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    border-top: 4px solid #007BFF;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.content .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.content .card h3 {
+    text-align: left;
+    color: #212529;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.content .card p {
+    font-size: 14px;
+    color: #6c757d;
+    text-align: left;
+}
+
+/* ==========================================================================
+   🔥 NOVO: CONFIGURAÇÃO DE TABELAS DE LISTAGEM (EX: LISTAR PRONTUÁRIOS)
+   ========================================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ced4da;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f4f6f9;
+}
+
+/* Estilização dos links de Editar e Excluir dentro da tabela */
+.botoes-acoes a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.botoes-acoes a + a {
+    margin-left: 10px;
+    color: #dc3545;
+}
